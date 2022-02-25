@@ -1,0 +1,43 @@
+#search_results {
+	display: grid;
+	grid-template-columns: repeat(4, 23%);
+	grid-gap: 10px;
+	padding-top: 35px;
+	justify-content: space-around;
+}
+#search_results > img {
+	width: 120%;
+}
+iframe {
+	border-radius: 20px;
+	margin-left: 40px;
+}
+button {
+	background-color: #f0f0f0;
+	height: 40px;
+	margin-top: 5px;
+}
+#video {
+	width: 672px;
+	height: 40px;
+	margin: auto;
+}
+#searchButton {
+	width: 80px;
+	margin-left: -5.2px;
+	border: 1px solid grey;
+	height: 40px;
+}
+#search {
+	justify-content: center;
+	margin-left: 15%;
+}
+#searchBar {
+	border-bottom: 1px solid grey;
+	display: flex;
+}
+#searchRight {
+	display: flex;
+	justify-content: space-between;
+	width: 550px;
+}

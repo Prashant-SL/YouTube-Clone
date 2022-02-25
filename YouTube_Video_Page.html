@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Video Nodu</title>
+		<link rel="stylesheet" href="videopage.css" />
+		<style></style>
+	</head>
+	<body>
+		<div id="searchBar">
+			<div id="logo">
+				<img
+					src="https://download.logo.wine/logo/YouTube/YouTube-Logo.wine.png"
+					style="width: 170px; margin-top: -30px; margin-bottom: -30px"
+				/>
+			</div>
+			<div id="search">
+				<input type="text" name="" id="video" placeholder="Search" />
+				<button
+					style="margin-top: 1px"
+					id="searchButton"
+					onclick="searchVideo()"
+				>
+					<img
+						width="28px"
+						src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698956-icon-111-search-512.png"
+						alt=""
+					/>
+				</button>
+			</div>
+			<div id="searchRight">
+				<img
+					width="35px"
+					height="35px"
+					style="margin-top: 5px"
+					src="https://www.iconpacks.net/icons/1/free-microphone-icon-342-thumb.png"
+					alt=""
+				/>
+				<img
+					style="border-radius: 50%; border: 1px solid gainsboro"
+					width="50px"
+					src="https://yt3.ggpht.com/yti/APfAmoHqbUXIjtWDG3vq9q__hOHQSgnmXH9CNip-gKpwfg=s88-c-k-c0x00ffffff-no-rj-mo"
+					alt=""
+				/>
+			</div>
+		</div>
+
+		<div id="main">
+			<div id="video_details"></div>
+			<div id="recommendation"></div>
+		</div>
+	</body>
+</html>
+<script>
+	let { videoId } = JSON.parse(localStorage.getItem('clicked_video'));
+	let video_div = document.getElementById('video_details');
+	let iframe = document.createElement('iframe');
+	iframe.src = `https://www.youtube.com/embed/${videoId}`;
+	iframe.width = '90%';
+	iframe.height = '100%';
+	iframe.setAttribute('allowfullscreen', 'true');
+
+	video_div.append(iframe);
+</script>

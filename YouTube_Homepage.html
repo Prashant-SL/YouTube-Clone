@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>YouTube Homepage</title>
+		<link rel="stylesheet" href="homepage.css" />
+	</head>
+	<body>
+		<div id="searchBar">
+			<div id="logo">
+				<img
+					src="https://download.logo.wine/logo/YouTube/YouTube-Logo.wine.png"
+					style="width: 170px; margin-top: -30px; margin-bottom: -30px"
+				/>
+			</div>
+			<div id="search">
+				<input type="text" name="" id="video" placeholder="Search" />
+				<button
+					style="margin-top: 1px"
+					id="searchButton"
+					onclick="searchVideo()"
+				>
+					<img
+						width="28px"
+						src="https://cdn1.iconfinder.com/data/icons/hawcons/32/698956-icon-111-search-512.png"
+						alt=""
+					/>
+				</button>
+			</div>
+			<div id="searchRight">
+				<!-- search Icon -->
+				<img
+					width="35px"
+					height="35px"
+					style="margin-top: 5px"
+					src="https://www.iconpacks.net/icons/1/free-microphone-icon-342-thumb.png"
+					alt=""
+				/>
+				<img
+					style="border-radius: 50%; border: 1px solid gainsboro"
+					width="50px"
+					src="https://yt3.ggpht.com/yti/APfAmoHqbUXIjtWDG3vq9q__hOHQSgnmXH9CNip-gKpwfg=s88-c-k-c0x00ffffff-no-rj-mo"
+					alt=""
+				/>
+			</div>
+		</div>
+
+		<div id="search_results"></div>
+	</body>
+</html>
+<script>
+	let api = 'AIzaSyCzoiehJlvpHGuf-rF-B6gq75rTgAaP3aM';
+	// let url=`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${video_query}&type=video&key=${api}`;
+
+	let search_results_div = document.getElementById('search_results');
+
+	searchVideo();
+	async function searchVideo() {
+		try {
+			let video_query = document.getElementById('video').value;
+			let response = await fetch(
+				`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${video_query}&type=video&key=${api}&maxResults=30`
+			);
+			let data = await response.json();
+			// console.log('data:', data)
+			let videos = data.items;
+
+			// console.log('data:', data);
+			appendVideos(videos);
+		} catch (e) {
+			console.log('e:', e);
+		}
+	}
+	var appendVideos = (items) => {
+		search_results_div.innerHTML = null;
+		items.forEach((elem) => {
+			let {
+				snippet,
+				id: { videoId },
+			} = elem;
+			let divs = document.createElement('div');
+
+			let title = document.createElement('p');
+			title.innerText = snippet.title;
+
+			let thumbnail = document.createElement('img');
+			thumbnail.src = snippet.thumbnails.medium.url;
+			thumbnail.style.width = '103%';
+
+			let data_to_send = {
+				snippet,
+				videoId,
+			};
+			divs.onclick = () => {
+				showVideo(data_to_send);
+			};
+
+			divs.append(thumbnail, title);
+			search_results_div.append(divs);
+		});
+	};
+
+	function showVideo(data) {
+		localStorage.setItem('clicked_video', JSON.stringify(data));
+		window.location.href = 'YouTube_Video_Page.html';
+	}
+</script>
